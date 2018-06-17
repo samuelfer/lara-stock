@@ -22,6 +22,16 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          @can('dashboard')
+            <li class="nav-item has-treeview">
+              <a href="{{route('dashboard.index')}}" class="nav-link">
+                <i class="nav-icon fa fa-pie-chart"></i>
+                <p>
+                 Dashboard</p>
+                <i class="right fa fa-angle-left"></i>
+              </a>
+            </li>
+          @endcan
           @can('View Fornecedor')
           <li class="nav-item has-treeview">
             <a href="{{route('fornecedor.index')}}" class="nav-link">
@@ -77,7 +87,7 @@
             </a>
           </li>
           {{--@endcan--}}
-            @can('View Permission')
+            @can('view_permission')
           <li class="nav-item has-treeview">
             <a href="{{route('permissions.index')}}" class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
@@ -86,7 +96,7 @@
             </a>
           </li>
             @endcan
-            @can('View Post')
+            @can('view_post')
             <li class="nav-item has-treeview">
               <a href="{{route('posts.index')}}" class="nav-link">
                 <i class="fa fa-circle-o nav-icon"></i>

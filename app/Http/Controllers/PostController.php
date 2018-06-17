@@ -7,14 +7,17 @@ use Illuminate\Http\Request;
 use App\Post;
 use Auth;
 use Session;
+use Spatie\Permission\Models\Role;
 
 class PostController extends Controller
 {
     protected $post;
+    protected $role;
 
-    public function __construct(Post $post) {
+    public function __construct(Post $post, Role $role) {
         $this->middleware(['auth', 'clearance']);
         $this->post = $post;
+        $this->role = $role;
     }
 
     /**
@@ -35,6 +38,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create() {
+        //$this->role->hasPermissionTo ( 'create_post');
         return view('posts.create');
     }
 
@@ -57,7 +61,7 @@ class PostController extends Controller
         $title = $request['title'];
         $body = $request['body'];
 
-        $post =  $this->postcreate($request->only('title', 'body'));
+        $post =  $this->post->create($request->only('title', 'body'));
 
         //Display a successful message upon save
         return redirect()->route('posts.index')
