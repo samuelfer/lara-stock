@@ -16,6 +16,7 @@ class PostController extends Controller
 
     public function __construct(Post $post, Role $role) {
         $this->middleware(['auth', 'clearance']);
+//        $this->middleware(['auth', 'roles']);
         $this->post = $post;
         $this->role = $role;
     }
@@ -63,10 +64,16 @@ class PostController extends Controller
 
         $post =  $this->post->create($request->only('title', 'body'));
 
+        session()->flash('flash_message', 'teste');
         //Display a successful message upon save
-        return redirect()->route('posts.index')
-            ->with('flash_message', 'Post,
-             '. $post->title.' criado com sucesso');
+        session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
+//        return redirect()->route('posts.index')
+//            ->with('flash_message', 'Post,
+//             '. $post->title.' criado com sucesso');
+
+        //return redirect()->route('posts.index')->with('flash_message_type',
+          //  'Post '. $post->title.' atualizado com sucesso');
+        return redirect()->route("posts.index");
     }
 
     /**
@@ -111,9 +118,8 @@ class PostController extends Controller
         $post->body = $request->input('body');
         $post->save();
 
-        return redirect()->route('posts.show',
-            $post->id)->with('flash_message',
-            'Post, '. $post->title.' atualizado com sucesso');
+        return redirect()->route('posts.index')->with('flash_message',
+            'Post '. $post->title.' atualizado com sucesso');
 
     }
 

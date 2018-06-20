@@ -1,33 +1,28 @@
 @extends('layouts.template.master')
 
-@section('title', '| Create New Post')
-
 @section('content')
+    <a href="{{ route('posts.create') }}"> </a>
+    <br>
+    <br>
     <div class="container-fluid">
         <div class="col-md-12">
 
-            <h1>Criar Novo Post</h1>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h5><i class='far fa-newspaper'></i> Cadastrar Post</h5>
+                </div>
+                {!! Form::open(['route' => 'posts.store', 'class' => 'form-control']) !!}
 
-            <hr>
+                @include('posts._form')
 
-            {{-- Using the Laravel HTML Form Collective to create our form --}}
-            {{ Form::open(array('route' => 'posts.store')) }}
+                <div class="form-group col-md-5">
+                    {!! Form::submit('Cadastrar', ['class' => 'btn btn-success']) !!}
+                </div>
+                {!! Form::close() !!}
 
-            <div class="form-group">
-                {{ Form::label('title', 'Título') }}
-                {{ Form::text('title', null, array('class' => 'form-control')) }}
-                {!! $errors->first('title', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
-                <br>
-
-                {{ Form::label('body', 'Texto') }}
-                {{ Form::textarea('body', null, array('class' => 'form-control')) }}
-                {!! $errors->first('body', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
-                <br>
-
-                {{ Form::submit('Cadastrar', array('class' => 'btn btn-success btn-lg btn-block')) }}
-                {{ Form::close() }}
             </div>
         </div>
+    </div>
     </div>
 
 @endsection

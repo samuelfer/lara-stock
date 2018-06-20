@@ -1,11 +1,3 @@
-{{--@extends('layouts.app')--}}
-
-{{--@section('title')--}}
-{{--Lista de Blocos--}}
-{{--@endsection--}}
-
-{{--@section('content')--}}
-{{--{{dd($data)}}--}}
 
 @extends('layouts.template.master')
 
@@ -20,7 +12,6 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-
 
               <h3 class="card-title">Listagem de Posts</h3><br>
               <a href="{{ route('posts.create') }}">
@@ -72,34 +63,4 @@
   </section>
   <!-- /.content -->
 
-
-
-{{--@extends('layouts.template.master')--}}
-
-
-{{--@section('content')--}}
-  {{--<div class="container">--}}
-    {{--<div class="row">--}}
-      {{--<div class="col-md-10 col-md-offset-1">--}}
-        {{--<div class="panel panel-default">--}}
-          {{--<div class="panel-heading"><h3>Posts</h3></div>--}}
-          {{--<div class="panel-heading">Page {{ $posts->currentPage() }} of {{ $posts->lastPage() }}</div>--}}
-          {{--@foreach ($posts as $post)--}}
-            {{--<div class="panel-body">--}}
-              {{--<li style="list-style-type:disc">--}}
-                {{--<a href="{{ route('posts.show', $post->id ) }}"><b>{{ $post->title }}</b><br>--}}
-                  {{--<p class="teaser">--}}
-                    {{--{{  str_limit($post->body, 100) }} --}}{{-- Limit teaser to 100 characters --}}
-                  {{--</p>--}}
-                {{--</a>--}}
-              {{--</li>--}}
-            {{--</div>--}}
-          {{--@endforeach--}}
-        {{--</div>--}}
-        {{--<div class="text-center">--}}
-          {{--{!! $posts->links() !!}--}}
-        {{--</div>--}}
-      {{--</div>--}}
-    {{--</div>--}}
-  {{--</div>--}}
 @endsection

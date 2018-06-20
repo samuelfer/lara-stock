@@ -132,7 +132,7 @@ class RoleController extends Controller
 
         return redirect()->route('roles.index')
             ->with('flash_message',
-                'Perfil'. $role->name.' atualizado com sucesso!');
+                'Perfil '. $role->name.' atualizado com sucesso!');
     }
 
     /**

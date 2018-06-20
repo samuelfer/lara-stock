@@ -96,7 +96,7 @@
             </a>
           </li>
             @endcan
-            @can('view_post')
+            @can('posts_index')
             <li class="nav-item has-treeview">
               <a href="{{route('posts.index')}}" class="nav-link">
                 <i class="fa fa-circle-o nav-icon"></i>

@@ -18,38 +18,42 @@ class ClearanceMiddleware {
         {
             return $next($request);
         }
+        $actions = $request->route()->getAction();//Pegando a action acionada
 
-        if ($request->is('posts/create'))//If user is creating a post
-        {
+        $var = str_replace('.', '_', $actions);//Substituindo o ponto para _ para ficar no padrao das permissoes
+        //dd($var['as']);
 
-            if (!Auth::user()->hasPermissionTo('create_post'))
+        //if ($request->is('posts/create'))//If user is creating a post
+        //{
+
+            if (!Auth::user()->hasPermissionTo($var['as']))
             {
                 abort('401');
             }
             else {
                 return $next($request);
             }
-        }
+        //}
 
-        if ($request->is('posts/*/edit')) //If user is editing a post
-        {
-            if (!Auth::user()->hasPermissionTo('Edit Post')) {
-                abort('401');
-            } else {
-                return $next($request);
-            }
-        }
-
-        if ($request->isMethod('Delete')) //If user is deleting a post
-        {
-            if (!Auth::user()->hasPermissionTo('Delete Post')) {
-                abort('401');
-            }
-            else
-            {
-                return $next($request);
-            }
-        }
+//        if ($request->is('posts/*/edit')) //If user is editing a post
+//        {
+//            if (!Auth::user()->hasPermissionTo('Edit Post')) {
+//                abort('401');
+//            } else {
+//                return $next($request);
+//            }
+//        }
+//
+//        if ($request->isMethod('Delete')) //If user is deleting a post
+//        {
+//            if (!Auth::user()->hasPermissionTo('Delete Post')) {
+//                abort('401');
+//            }
+//            else
+//            {
+//                return $next($request);
+//            }
+//        }
 
         return $next($request);
     }
