@@ -8,7 +8,7 @@
     @include('saida._form')
 
     <div class="form-group col-md-5">
-        {!! Form::submit('Salvar alterações', ['class' => 'btn btn-success']) !!}
+        {!! Form::submit('Salvar alterações', ['class' => 'btn btn-success btn-sm']) !!}
     </div>
     {!! Form::close() !!}
 

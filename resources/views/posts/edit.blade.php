@@ -13,12 +13,12 @@
             {{ Form::model($post, array('route' => array('posts.update', $post->id), 'method' => 'PUT')) }}
             <div class="form-group">
                 {{ Form::label('title', 'Title') }}
-                {{ Form::text('title', null, array('class' => 'form-control')) }}<br>
+                {{ Form::text('title', null, array('class' => 'form-control ')) }}<br>
 
                 {{ Form::label('body', 'Post Body') }}
                 {{ Form::textarea('body', null, array('class' => 'form-control')) }}<br>
 
-                {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
+                {{ Form::submit('Save', array('class' => 'btn btn-primary btn-sm')) }}
 
                 {{ Form::close() }}
             </div>

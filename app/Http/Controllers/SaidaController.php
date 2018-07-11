@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaidaRequest;
 use App\Saida;
 use Illuminate\Http\Request;
 
@@ -28,6 +29,7 @@ class SaidaController extends Controller
      */
     public function create()
     {
+        $this->authorize('saida_create', $this->saida);
         return view('saida.create');
     }
 
@@ -37,7 +39,7 @@ class SaidaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaidaRequest $request)
     {
         $data = $request->all();
 
@@ -46,6 +48,9 @@ class SaidaController extends Controller
             //$this->validator->with($data)->passesOrFail('create');
 
             $saida = $this->saida->create($data);
+
+            session()->flash('flash_message', 'Cadastro realizado com sucesso');
+            session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
 
             return redirect()->route('saida.index')->with('status', 'Registro criado com sucesso!');
 
@@ -74,6 +79,7 @@ class SaidaController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('saida_edit', $this->saida);
         $sai = $this->saida->findOrFail($id);
 
         return view('saida.edit', compact('sai'));
@@ -98,7 +104,10 @@ class SaidaController extends Controller
 
             $sai->update($data);
 
-            return redirect()->route('saida.index')->with('atualiza', 'Registro atualizado com sucesso!');
+            session()->flash('flash_message', 'Registro atualizado com sucesso');
+            session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
+
+            return redirect()->route('saida.index');
 
         } catch (ValidatorException $e) {
 
@@ -114,10 +123,15 @@ class SaidaController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('saida_delete', $this->saida);
         if (!($sai = $this->saida->find($id))) {
             throw new ModelNotFoundException("A saída não foi encontrado");
         }
         $sai->delete();
+
+        session()->flash('flash_message', 'Registro excluído com sucesso');
+        session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
+
         return redirect()->route('saida.index');
     }
 

@@ -11,22 +11,22 @@ class CreateTipoUnidadeTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('tipo_unidade', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->increments('id');
-            $table->string('nome');
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('tipo_unidade');
-    }
+//    public function up()
+//    {
+//        Schema::create('tipo_unidade', function (Blueprint $table) {
+//            $table->engine = 'InnoDB';
+//            $table->increments('id');
+//            $table->string('nome');
+//        });
+//    }
+//
+//    /**
+//     * Reverse the migrations.
+//     *
+//     * @return void
+//     */
+//    public function down()
+//    {
+//       Schema::dropIfExists('tipo_unidade');
+//    }
 }

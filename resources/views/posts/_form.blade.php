@@ -1,14 +1,25 @@
 
+<div class="box-header with-border">
+    <h3 class="box-title">Posts</h3>
+</div>
+
 <div class="card-body">
-    <div class="form-group">
+    <div class="row">
+        <div class="col-md-4 col-lg-4">
+            <div class="form-group">
+                {!! Form::label('title', 'Título') !!}
+                {!! Form::text('title', null, ['class' => 'form-control form-control-sm']) !!}
+                {!! $errors->first('title', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
+            </div>
+        </div>
 
-        {!! Form::label('nome', 'Nome', ['class' => 'col-sm-12 control-label']) !!}
-        {!! Form::text('nome', null, ['class' => 'form-control', 'required']) !!}
-        {!! $errors->first('name', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
-
-        {!! Form::label('observacao', 'Observação', ['class' => 'col-sm-12 control-label']) !!}
-        {!! Form::textarea('observacao', null, ['class' => 'form-control']) !!}
-        {!! $errors->first('observacao', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
-
+        <div class="col-md-12 col-lg-12">
+            <div class="form-group">
+                {!! Form::label('body', 'Observação') !!}
+                {!! Form::textarea('body', null, ['class' => 'form-control form-control-sm']) !!}
+                {!! $errors->first('body', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
+            </div>
+        </div>
     </div>
 </div>
+

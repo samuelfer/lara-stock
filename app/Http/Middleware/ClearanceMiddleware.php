@@ -14,25 +14,27 @@ class ClearanceMiddleware {
      * @return mixed
      */
     public function handle($request, Closure $next) {
+
         if (Auth::user()->hasPermissionTo('Administer roles & permissions')) //If user has this //permission
         {
             return $next($request);
         }
+
         $actions = $request->route()->getAction();//Pegando a action acionada
 
         $var = str_replace('.', '_', $actions);//Substituindo o ponto para _ para ficar no padrao das permissoes
-        //dd($var['as']);
+        dd($actions);
 
         //if ($request->is('posts/create'))//If user is creating a post
         //{
 
-            if (!Auth::user()->hasPermissionTo($var['as']))
-            {
-                abort('401');
-            }
-            else {
-                return $next($request);
-            }
+        if (!Auth::user()->hasPermissionTo($var['as']))
+        {
+            abort('401');
+        }
+        else {
+            return $next($request);
+        }
         //}
 
 //        if ($request->is('posts/*/edit')) //If user is editing a post

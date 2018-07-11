@@ -18,7 +18,7 @@
             @include('fornecedor._form')
 
             <div class="form-group col-md-5">
-                {!! Form::submit('Cadastrar fornecedor', ['class' => 'btn btn-success']) !!}
+                {!! Form::submit('Cadastrar fornecedor', ['class' => 'btn btn-success btn-sm']) !!}
             </div>
             {!! Form::close() !!}
 

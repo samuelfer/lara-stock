@@ -17,7 +17,6 @@
      
     </div>
     @include('layouts.template.footer')
-    @yield('scripts')
 
 </body>
 </html>

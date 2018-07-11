@@ -17,7 +17,7 @@ class UserController extends Controller
     protected $role;
 
     public function __construct(User $user, Role $role) {
-        $this->middleware(['auth', 'isAdmin']); //Apenas admin acessa
+        //$this->middleware(['auth', 'isAdmin']); //Apenas admin acessa
         $this->user = $user;
         $this->role = $role;
     }
@@ -49,11 +49,11 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $this->validate($request, [
-            'name'=>'required|max:120',
-            'email'=>'required|email|unique:users',
-            'password'=>'required|min:6|confirmed'
-        ]);
+//        $this->validate($request, [
+//            'name'=>'required|max:120',
+//            'email'=>'required|email|unique:users',
+//            'password'=>'required|min:6|confirmed'
+//        ]);
 
         $user = $this->user->create($request->only('email', 'name', 'password'));
 

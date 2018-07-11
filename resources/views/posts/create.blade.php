@@ -7,10 +7,7 @@
     <div class="container-fluid">
         <div class="col-md-12">
 
-            <div class="card card-info">
-                <div class="card-header">
-                    <h5><i class='far fa-newspaper'></i> Cadastrar Post</h5>
-                </div>
+
                 {!! Form::open(['route' => 'posts.store', 'class' => 'form-control']) !!}
 
                 @include('posts._form')
@@ -20,7 +17,6 @@
                 </div>
                 {!! Form::close() !!}
 
-            </div>
         </div>
     </div>
     </div>

@@ -51,7 +51,7 @@
                 </a>
           </li>
             @endcan
-            @can('View Setor')
+            @can('setor_create')
           <li class="nav-item has-treeview">
             <a href="{{route('setor.index')}}" class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
@@ -60,7 +60,7 @@
             </a>
           </li>
             @endcan
-            @can('View Entrada')
+            @can('entrada_create')
           <li class="nav-item has-treeview">
             <a href="{{route('entrada.index')}}" class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
@@ -69,7 +69,7 @@
             </a>
           </li>
             @endcan
-            @can('View Saida')
+            @can('saida_create')
           <li class="nav-item has-treeview">
             <a href="{{route('saida.index')}}" class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
@@ -78,7 +78,7 @@
             </a>
           </li>
          @endcan
-          {{--@can('View Perfil')--}}
+          @can('view_role')
           <li class="nav-item has-treeview">
             <a href="{{route('roles.index')}}" class="nav-link">
               <i class="fa fa-circle-o nav-icon"></i>
@@ -86,7 +86,7 @@
               <i class="right fa fa-angle-left"></i>
             </a>
           </li>
-          {{--@endcan--}}
+          @endcan
             @can('view_permission')
           <li class="nav-item has-treeview">
             <a href="{{route('permissions.index')}}" class="nav-link">
@@ -114,6 +114,15 @@
                 </a>
               </li>
             @endcan
+            {{--@can('view_tipo_unidade')--}}
+              {{--<li class="nav-item has-treeview">--}}
+                {{--<a href="{{route('tipo_unidade.index')}}" class="nav-link">--}}
+                  {{--<i class="fa fa-circle-o nav-icon"></i>--}}
+                  {{--<p>Tipo Unidade</p>--}}
+                  {{--<i class="right fa fa-angle-left"></i>--}}
+                {{--</a>--}}
+              {{--</li>--}}
+            {{--@endcan--}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

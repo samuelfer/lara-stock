@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SetorRequest;
 use App\Setor;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -19,6 +20,7 @@ class SetorController extends Controller
     public function index()
     {
         $data = $this->setor->orderBy('id', 'asc')->paginate(5);
+
         return view('setor.index', compact('data'));
     }
 
@@ -29,6 +31,7 @@ class SetorController extends Controller
      */
     public function create()
     {
+        $this->authorize('setor_create', $this->setor);
         return view('setor.create');
     }
 
@@ -38,18 +41,17 @@ class SetorController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SetorRequest $request)
     {
         $data = $request->all();
-
-        $validaDados = $request->validate([
-            'nome' => 'required|unique:setor|min:3|max:255'
-        ]);
 
         try {
             $setor = $this->setor->create($data);
 
-            return redirect()->route('setor.index')->with('status', 'Registro criado com sucesso!');
+            session()->flash('flash_message', 'Cadastro realizado com sucesso');
+            session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
+
+            return redirect()->route('setor.index');
 
         } catch (ValidatorException $e) {
 
@@ -76,7 +78,11 @@ class SetorController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('setor_edit', $this->setor);
         $set = $this->setor->findOrFail($id);
+
+        session()->flash('flash_message', 'Registro atualizado com sucesso');
+        session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
 
         return view('setor.edit', compact('set'));
     }
@@ -94,13 +100,14 @@ class SetorController extends Controller
 
         try {
 
-            //$this->validator->with($data)->passesOrFail('edit');
-
             $set = $this->setor->findOrFail($id);
 
             $set->update($data);
 
-            return redirect()->route('setor.index')->with('atualiza', 'Registro atualizado com sucesso!');
+            session()->flash('flash_message', 'Registro atualizado com sucesso');
+            session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
+
+            return redirect()->route('setor.index');
 
         } catch (ValidatorException $e) {
 
@@ -116,10 +123,15 @@ class SetorController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('setor_delete', $this->setor);
         if (!($set = $this->setor->find($id))) {
-            throw new ModelNotFoundException("O seto não foi encontrado");
+            throw new ModelNotFoundException("O setor não foi encontrado");
         }
         $set->delete();
+
+        session()->flash('flash_message', 'Registro excluído com sucesso');
+        session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
+
         return redirect()->route('setor.index');
     }
 }

@@ -15,6 +15,7 @@ class Setor extends Model
 
     protected $fillable = [
       'nome',
-      'observacao'
+      'observacao',
+      'telefone'
     ];
 }

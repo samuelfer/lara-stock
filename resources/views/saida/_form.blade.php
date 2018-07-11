@@ -1,59 +1,35 @@
-
-    {{--<div class="card-body">--}}
-        {{--<div class="form-group">--}}
-            {{--<div class="form-group col-md-8">--}}
-                {{--{!! Form::label('nome', 'Nome', ['class' => 'col-sm-2 control-label']) !!}--}}
-                {{--{!! Form::text('nome', null, ['class' => 'form-control', 'required']) !!}--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1></h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">General Form</li>
-                    </ol>
-                </div>
+<div class="box-header with-border">
+    <h3 class="box-title">Saída de Produto</h3>
+</div>
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-4 col-lg-4">
+            <div class="form-group">
+                    {!! Form::label('data', 'Data', ['class' => 'col-md-5 control-label']) !!}
+                    {!! Form::text('data', null, ['class' => 'form-control col-md-5', 'required']) !!}
+                    {!! $errors->first('data', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
-
-    <div class="container-fluid">
-        <div class="col-md-12">
-
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-title">Informações da Saída</h3>
-                </div>
-
-                    <div class="card-body">
-                        <div class="form-group">
-
-                            {!! Form::label('data', 'Data', ['class' => 'col-sm-2 control-label']) !!}
-                            {!! Form::text('data', null, ['class' => 'form-control', 'required']) !!}
-                            {!! $errors->first('data', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
-
-                            {!! Form::label('valor', 'Valor', ['class' => 'col-sm-2 control-label']) !!}
-                            {!! Form::text('valor', null, ['class' => 'form-control', 'required']) !!}
-                            {!! $errors->first('valor', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
-
-                            {!! Form::label('setor_id', 'Setor', ['class' => 'col-sm-2 control-label']) !!}
-                            {!! Form::text('setor_id', null, ['class' => 'form-control', 'required']) !!}
-                            {!! $errors->first('setor_id', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
-
-                            {!! Form::label('observacao', 'Observação', ['class' => 'col-sm-2 control-label']) !!}
-                            {!! Form::textarea('observacao', null, ['class' => 'form-control', 'required']) !!}
-                            {!! $errors->first('observacao', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
-
-
-                        </div>
-                    </div>
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <div class="form-group">
+                    {!! Form::label('valor', 'Valor') !!}
+                    {!! Form::text('valor', null, ['class' => 'form-control form-control-sm', 'required']) !!}
+                    {!! $errors->first('valor', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <div class="form-group">
+                {!! Form::label('setor_id', 'Setor') !!}
+                {!! Form::text('setor_id', null, ['class' => 'form-control cform-control-sm', 'required']) !!}
+                {!! $errors->first('setor_id', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12">
+            <div class="form-group">
+                {!! Form::label('observacao', 'Observação') !!}
+                {!! Form::textarea('observacao', null, ['class' => 'form-control form-control-sm', 'rows=2', 'required']) !!}
+                {!! $errors->first('observacao', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
             </div>
         </div>
     </div>
+</div>

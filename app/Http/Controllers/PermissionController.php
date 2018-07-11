@@ -74,7 +74,7 @@ class PermissionController extends Controller
 
         return redirect()->route('permissions.index')
             ->with('flash_message',
-                'Permissão'. $permission->name.' criada com sucesso!');
+                'Permissão '. $permission->name.' criada com sucesso!');
 
     }
 

@@ -35,6 +35,10 @@ Route::resource('roles', 'RoleController');
 
 Route::resource('permissions', 'PermissionController');
 
+Route::resource('entradadetalhe', 'EntradaDetalheController');
+
+Route::resource('tipounidade', 'TipoUnidadeController');
+
 
 
 Route::get('/', 'PostController@index')->name('home');

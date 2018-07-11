@@ -11,4 +11,9 @@ class TipoUnidade extends Model
     protected $fillable = [
     	'nome'
     ];
+
+    public function produto()
+    {
+        return $this->belongsTo(TipoUnidade::class, 'tipo_unidade_id', 'id');
+    }
 }

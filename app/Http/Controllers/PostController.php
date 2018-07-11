@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostsRequest;
 use Illuminate\Http\Request;
 
 use App\Post;
@@ -15,10 +16,11 @@ class PostController extends Controller
     protected $role;
 
     public function __construct(Post $post, Role $role) {
-        $this->middleware(['auth', 'clearance']);
-//        $this->middleware(['auth', 'roles']);
+        //$this->middleware(['auth', 'clearance']);
+        //$this->middleware(['auth', 'roles']);
         $this->post = $post;
         $this->role = $role;
+
     }
 
     /**
@@ -29,7 +31,6 @@ class PostController extends Controller
 
     public function index() {
         $posts =  $this->post->orderby('id', 'desc')->paginate(5);
-
         return view('posts.index', compact('posts'));
     }
 
@@ -39,7 +40,8 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        //$this->role->hasPermissionTo ( 'create_post');
+
+        $this->authorize('posts_create', $this->post);
         return view('posts.create');
     }
 
@@ -49,30 +51,11 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-
-
-        $this->validate($request, [
-            'title'=>'required|max:100',
-            'body' =>'required',
-        ]);
-
-        //$this->_validate($request);
-
-        $title = $request['title'];
-        $body = $request['body'];
-
+    public function store(PostsRequest $request) {
         $post =  $this->post->create($request->only('title', 'body'));
 
-        session()->flash('flash_message', 'teste');
-        //Display a successful message upon save
+        session()->flash('flash_message', 'Cadastro realizado com sucesso');
         session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
-//        return redirect()->route('posts.index')
-//            ->with('flash_message', 'Post,
-//             '. $post->title.' criado com sucesso');
-
-        //return redirect()->route('posts.index')->with('flash_message_type',
-          //  'Post '. $post->title.' atualizado com sucesso');
         return redirect()->route("posts.index");
     }
 
@@ -95,6 +78,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
+        $this->authorize('posts_edit', $this->post);
         $post = $this->post->findOrFail($id);
 
         return view('posts.edit', compact('post'));
@@ -118,8 +102,9 @@ class PostController extends Controller
         $post->body = $request->input('body');
         $post->save();
 
-        return redirect()->route('posts.index')->with('flash_message',
-            'Post '. $post->title.' atualizado com sucesso');
+        session()->flash('flash_message', 'Registro atualizado com sucesso');
+        session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
+        return redirect()->route('posts.index');
 
     }
 
@@ -129,34 +114,16 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
+        $this->authorize('posts_delete', $this->post);
         $post =  $this->post->findOrFail($id);
         $post->delete();
 
-        return redirect()->route('posts.index')
-            ->with('flash_message',
-                'Post excluído com sucessso');
+        session()->flash('flash_message', 'Registro excluído com sucesso');
+        session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
+        return redirect()->route('posts.index');
 
     }
-
-//    private function _validate(Request $request)
-//    {
-//        $this->validate(
-//            $request,
-//            $this->customAttributes()
-//        );
-//    }
-//
-//
-//    /**
-//     * @return array
-//     */
-//    private function customAttributes()
-//    {
-//        return [
-//            "title" => "Título",
-//            'body' => 'Texto',
-//        ];
-//    }
 
 }

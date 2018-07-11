@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -46,6 +47,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof AuthorizationException) {
+//            session()->flash('flash_message', 'Você não está autorizado acessar essa página!');
+//            session()->flash('flash_message_type', BOOTSTRAP_WARNING);
+            return response()->view("partials.error");//CRIAR VIEW
+        }
         return parent::render($request, $exception);
     }
 }

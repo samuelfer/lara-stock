@@ -14,13 +14,14 @@
             <div class="card-header">
 
               <h3 class="card-title">Listagem de Posts</h3><br>
+              {{--@can('posts_create', $posts)--}}
               <a href="{{ route('posts.create') }}">
                 <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left btn btn-success btn-sm">
                   <span class="ui-button-icon-left ui-icon ui-c fa fa-plus-square-o"></span><span
                           class="ui-button-text ui-c"> Novo cadastro</span>
                 </button>
               </a>
-
+              {{--@endcan--}}
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
@@ -36,7 +37,7 @@
                     <td>{{$post->id}}</td>
                     <td>{{$post->title}}</td>
                     <td>{{  str_limit($post->body, 100) }}</td>
-                    <td><a href="{{route('posts.edit', ['post' => $post->id])}}" class="btn btn-info btn-sm">Editar</a>
+                    <td>@can('posts_edit')<a href="{{route('posts.edit', ['post' => $post->id])}}" class="btn btn-info btn-sm">Editar</a>@endcan
                       {{ Form::open(['route' => ['posts.destroy', $post->id], 'method' => 'DELETE', 'style' => 'display:inline']) }}
                       <button class="btn btn-danger btn-sm">Remover</button>
                       {{ Form::close() }}
@@ -64,3 +65,14 @@
   <!-- /.content -->
 
 @endsection
+
+{{--<script type="text/javascript">--}}
+
+{{--$('message').css("color", "#f66");--}}
+{{--/*$('h1').hide();*/--}}
+{{--$('message').delay('1000');--}}
+{{--$('message').css("color", "#f66");--}}
+{{--$('message').fadeOut("slow");--}}
+
+
+{{--</script>--}}

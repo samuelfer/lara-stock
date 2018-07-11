@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFornecedorTable extends Migration
+class CreateTipoPessoaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateFornecedorTable extends Migration
      */
     public function up()
     {
-        Schema::create('fornecedor', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
+        Schema::create('tipo_pessoa', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nome', 100);
-            $table->string('cnpj', 16);
-            $table->string('razao_social', 100);
+            $table->string('nome',70);
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateFornecedorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fornecedor');
+        Schema::dropIfExists('tipo_pessoa');
     }
 }

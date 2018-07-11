@@ -2,22 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Categoria;
+use App\Fornecedor;
 use App\Produto;
+use App\TipoUnidade;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
     protected $produto;
+    protected $categoria;
+    protected $tipoUnidade;
+    protected $fornecedor;
 
-    public function __construct(Produto $produto)
+    public function __construct(Produto $produto, Categoria $categoria, TipoUnidade $tipoUnidade, Fornecedor $fornecedor)
     {
         $this->produto = $produto;
+        $this->categoria = $categoria;
+        $this->tipoUnidade = $tipoUnidade;
+        $this->fornecedor = $fornecedor;
     }
 
     public function index()
     {
         $data = $this->produto->orderBy('id', 'asc')->paginate(5);
-//        dd($data);
+        //dd($data);
         return view('produto.index', compact('data'));
     }
 
@@ -28,7 +37,11 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        return view('produto.create');
+        $categorias = $this->categoria->pluck('nome', 'id');
+        $tpunidades = $this->tipoUnidade->pluck('nome', 'id');
+        $fornecedores = $this->fornecedor->pluck('nome', 'id');
+
+        return view('produto.create', compact('categorias', 'tpunidades', 'fornecedores'));
     }
 
     /**
@@ -42,7 +55,6 @@ class ProdutoController extends Controller
         $data = $request->all();
 
         try {
-
             //$this->validator->with($data)->passesOrFail('create');
 
             $fornecedor = $this->produto->create($data);
