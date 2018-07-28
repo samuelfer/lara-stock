@@ -2,6 +2,13 @@
 
 @section('content')
 
+    <div class="container-fluid">
+        <div class="col-md-12">
+
+        <div class="card card-default">
+        <div class="card-header">
+        <h5><i class='fa fa-key'></i> Cadastrar Entrada</h5>
+        </div>
 
     <a href="{{ route('entrada.create') }}"> </a>
     <br>
@@ -16,6 +23,6 @@
     </div>
     {!! Form::close() !!}
 
-
+        </div>
 @endsection
 

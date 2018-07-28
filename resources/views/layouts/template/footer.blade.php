@@ -41,6 +41,8 @@
 <script src="{{url('adminLTE/dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{url('adminLTE/dist/js/pages/dashboard.js')}}"></script>
+
+<script src="{{url('adminLTE/plugins/input-mask/jquery.inputmask.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{url('adminLTE/dist/js/demo.js')}}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

@@ -2,17 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Historico;
 use App\Http\Requests\SaidaRequest;
+use App\Produto;
 use App\Saida;
+use App\SaidaDetalhe;
+use App\TipoUnidade;
 use Illuminate\Http\Request;
 
 class SaidaController extends Controller
 {
     protected $saida;
+    protected $saidaDetalhe;
+    protected $historico;
+    protected $tipoUnidade;
+    protected $produto;
 
-    public function __construct(Saida $saida)
+    public function __construct(Saida $saida, SaidaDetalhe $saidaDetalhe,Historico $historico,
+                                TipoUnidade $tipoUnidade, Produto $produto)
     {
         $this->saida = $saida;
+        $this->saidaDetalhe = $saidaDetalhe;
+        $this->historico = $historico;
+        $this->tipoUnidade = $tipoUnidade;
+        $this->produto = $produto;
     }
 
     public function index()
@@ -30,7 +43,10 @@ class SaidaController extends Controller
     public function create()
     {
         $this->authorize('saida_create', $this->saida);
-        return view('saida.create');
+        $tpunidades = $this->tipoUnidade->pluck('nome', 'id');
+        $produtos = $this->produto->pluck('nome', 'id');
+
+        return view('saida.create', compact('tpunidades', 'produtos'));
     }
 
     /**
@@ -47,7 +63,15 @@ class SaidaController extends Controller
 
             //$this->validator->with($data)->passesOrFail('create');
 
-            $saida = $this->saida->create($data);
+            $saidaModel = $this->saida->create($data);
+
+            $detalhes = $request->get('detalhe');
+
+            foreach($detalhes as $detalhe) {
+                $salvarDetalhe = $detalhe;
+                $salvarDetalhe['saida_id'] = $saidaModel->id;
+                $this->saidaDetalhe->create($salvarDetalhe);
+            }
 
             session()->flash('flash_message', 'Cadastro realizado com sucesso');
             session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);

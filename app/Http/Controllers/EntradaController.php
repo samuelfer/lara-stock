@@ -60,25 +60,22 @@ class EntradaController extends Controller
     {
         $data = $request->all();
 
-        //dd($data['detalhe']);
-
         try {
 
-            $data = $this->entrada->create($data);
+            $entradaModel = $this->entrada->create($data);
 
-            $entradaDetalhe = array_get($request, 'detalhe', []);
+            $detalhes = $request->get('detalhe');
 
+            foreach($detalhes as $detalhe) {
+                $salvarDetalhe = $detalhe;
+                $salvarDetalhe['entrada_id'] = $entradaModel->id;
+                $detalheEntrada = $this->entradaDetalhe->create($salvarDetalhe);//Inserindo em entrada detalhe
 
-            $entradaDetalhe = array_add($entradaDetalhe[0], 'entrada_id',$data->id);
+                $detalheEntrada['data_entrada'] = $entradaModel->data;
+                $detalheEntrada['entrada_detalhe_id'] = $detalheEntrada->id;
 
-            foreach ($entradaDetalhe as $key => $value){
-                dd($value);
+                $insertHistorico = $this->historico->create($detalheEntrada->toArray());//Inserindo os dados em historico
             }
-
-            EntradaDetalhe::create($entradaDetalhe);
-
-
-            //$historico = $entrada->historico->create($data->toArray());//Inserindo os dados em historico
 
             session()->flash('flash_message', 'Cadastro realizado com sucesso');
             session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
@@ -112,8 +109,10 @@ class EntradaController extends Controller
     {
         //$this->authorize('entrada_edit', $this->entrada);
         $ent = $this->entrada->findOrFail($id);
+        $produtos = $this->produto->pluck('nome',  'id');
+        $tpunidades = $this->tipoUnidade->pluck('nome', 'id');
 
-        return view('entrada.edit', compact('ent'));
+        return view('entrada.edit', compact('ent', 'produtos', 'tpunidades'));
     }
 
     /**

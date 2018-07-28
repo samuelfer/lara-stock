@@ -53,9 +53,9 @@
                     <td>{{$datum->id}}</td>
                     <td>{{$datum->nome}}</td>
                     <td>{{$datum->observacao}}</td>
-                    <td><a href="{{route('setor.edit', ['data' => $datum->id])}}" class="btn btn-info btn-sm">Editar</a>
+                    <td><a href="{{route('setor.edit', ['data' => $datum->id])}}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
                       {{ Form::open(['route' => ['setor.destroy', $datum->id], 'method' => 'DELETE', 'style' => 'display:inline']) }}
-                         <button class="btn btn-danger btn-sm">Remover</button>
+                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                       {{ Form::close() }}
 
                     </td>

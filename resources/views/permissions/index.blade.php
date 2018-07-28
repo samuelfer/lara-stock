@@ -43,10 +43,11 @@
                     <td>{{ $permission->id }}</td>
                     <td>{{ $permission->name }}</td>
                     <td>
-                      <a href="{{ URL::to('permissions/'.$permission->id.'/edit') }}" class="btn btn-info btn-sm pull-left" style="margin-right: 3px;">Editar</a>
+                      <a href="{{route('permissions.edit', ['data' => $permission->id])}}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
 
-                      {!! Form::open(['method' => 'DELETE', 'route' => ['permissions.destroy', $permission->id] ]) !!}
-                      {!! Form::submit('Excluir', ['class' => 'btn btn-danger btn-sm']) !!}
+
+                      {!! Form::open(['route' => ['permissions.destroy', $permission->id], 'method' => 'DELETE', 'style' => 'display:inline']) !!}
+                      <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                       {!! Form::close() !!}
 
                     </td>

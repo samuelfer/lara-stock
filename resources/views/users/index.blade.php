@@ -50,12 +50,12 @@
                     <td>{{ $user->created_at->format('F d, Y h:ia') }}</td>
                     <td>{{  $user->roles()->pluck('name')->implode(' ') }}</td>{{-- Retrieve array of roles associated to a user and convert to string --}}
                     <td>
-                      <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>
+                      <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info btn-sm pull-left" style="margin-right: 3px;"><i class="fa fa-pencil"></i></a>
 
-                      {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user->id] ]) !!}
-                      {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                      {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'DELETE',  'style' => 'display:inline']) !!}
+                      <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                       {!! Form::close() !!}
-
+                      
                     </td>
 
                   </tr>

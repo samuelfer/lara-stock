@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Categoria;
 use App\Fornecedor;
+use App\Http\Requests\ProdutoRequest;
 use App\Produto;
 use App\TipoUnidade;
 use Illuminate\Http\Request;
@@ -37,6 +38,7 @@ class ProdutoController extends Controller
      */
     public function create()
     {
+        $this->authorize('create_produto', $this->produto);
         $categorias = $this->categoria->pluck('nome', 'id');
         $tpunidades = $this->tipoUnidade->pluck('nome', 'id');
         $fornecedores = $this->fornecedor->pluck('nome', 'id');
@@ -50,8 +52,9 @@ class ProdutoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProdutoRequest $request)
     {
+        $this->authorize('store_produto', $this->produto);
         $data = $request->all();
 
         try {
@@ -87,8 +90,11 @@ class ProdutoController extends Controller
     public function edit($id)
     {
         $prod = $this->produto->findOrFail($id);
+        $fornecedores = $this->fornecedor->pluck('nome', 'id');
+        $tpunidades = $this->tipoUnidade->pluck('nome', 'id');
+        $categorias = $this->categoria->pluck('nome', 'id');
 
-        return view('produto.edit', compact('prod'));
+        return view('produto.edit', compact('prod', 'fornecedores', 'tpunidades', 'categorias'));
     }
 
     /**
@@ -98,7 +104,7 @@ class ProdutoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProdutoRequest $request, $id)
     {
         $data = $request->all();
 
@@ -110,7 +116,7 @@ class ProdutoController extends Controller
 
             $prod->update($data);
 
-            return redirect()->route('produto.index')->with('atualiza', 'Registro atualizado com sucesso!');
+            return redirect()->route('produto.index')->with('status', 'Registro atualizado com sucesso!');
 
         } catch (ValidatorException $e) {
 

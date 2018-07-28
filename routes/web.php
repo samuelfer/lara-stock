@@ -11,15 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('dashboard', 'DashboardController');
+Route::resource('/', 'DashboardController');
 
 Route::resource('fornecedor', 'FornecedorController');
 
@@ -38,10 +35,6 @@ Route::resource('permissions', 'PermissionController');
 Route::resource('entradadetalhe', 'EntradaDetalheController');
 
 Route::resource('tipounidade', 'TipoUnidadeController');
-
-
-
-Route::get('/', 'PostController@index')->name('home');
 
 Route::resource('users', 'UserController');
 

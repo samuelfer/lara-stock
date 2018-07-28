@@ -16,7 +16,7 @@ class PostController extends Controller
     protected $role;
 
     public function __construct(Post $post, Role $role) {
-        //$this->middleware(['auth', 'clearance']);
+        $this->middleware(['auth', 'clearance']);
         //$this->middleware(['auth', 'roles']);
         $this->post = $post;
         $this->role = $role;

@@ -1,1 +1,1 @@
-@extends('layouts.template.master')
+{{--@extends('layouts.template.master')--}}

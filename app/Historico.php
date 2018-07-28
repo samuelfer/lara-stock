@@ -15,7 +15,7 @@ class Historico extends Model
       'entrada_detalhe_id',
       'saida_id',
       'saida_detalhe_id',
-      'qtde_entrada',
+      'quantidade',
       'qtde_removida'
     ];
 }

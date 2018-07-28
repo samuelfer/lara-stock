@@ -46,9 +46,9 @@
                     <td>{{$datum->id}}</td>
                     <td>{{$datum->nome}}</td>
                     <td>{{$datum->descricao}}</td>
-                    <td><a href="{{route('produto.edit', ['data' => $datum->id])}}" class="btn btn-info btn-sm">Editar</a>
+                    <td><a href="{{route('produto.edit', ['data' => $datum->id])}}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>
                       {{ Form::open(['route' => ['produto.destroy', $datum->id], 'method' => 'DELETE', 'style' => 'display:inline']) }}
-                         <button class="btn btn-danger btn-sm">Remover</button>
+                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                       {{ Form::close() }}
 
                     </td>

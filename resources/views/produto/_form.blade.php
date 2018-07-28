@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-4 col-lg-4">
             <div class="form-group">
-                {!! Form::label('nome', 'Nome') !!}
+                {!! Form::label('nome', 'Nome*') !!}
                 {!! Form::text('nome', null, ['class' => 'form-control form-control-sm', 'required']) !!}
                 {!! $errors->first('nome', '<span class="help-block" style="color:red"><strong>:message</strong></span>') !!}
             </div>
@@ -57,3 +57,10 @@
         </div>
     </div>
 </div>
+
+@section('scripts')
+
+    <script>
+        $('input[name="peso"]').mask('##.##0,00', {reverse: true});
+    </script>
+@endsection

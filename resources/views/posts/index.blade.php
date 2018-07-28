@@ -37,9 +37,9 @@
                     <td>{{$post->id}}</td>
                     <td>{{$post->title}}</td>
                     <td>{{  str_limit($post->body, 100) }}</td>
-                    <td>@can('posts_edit')<a href="{{route('posts.edit', ['post' => $post->id])}}" class="btn btn-info btn-sm">Editar</a>@endcan
+                    <td>@can('posts_edit')<a href="{{route('posts.edit', ['post' => $post->id])}}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></a>@endcan
                       {{ Form::open(['route' => ['posts.destroy', $post->id], 'method' => 'DELETE', 'style' => 'display:inline']) }}
-                      <button class="btn btn-danger btn-sm">Remover</button>
+                      <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                       {{ Form::close() }}
 
                     </td>

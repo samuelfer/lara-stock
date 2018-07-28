@@ -1,4 +1,5 @@
 
+<div class="container-fluid">
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
@@ -7,18 +8,26 @@
             <small class="help-block">{{{ $errors->first('data', ':message') }}}</small>
         </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-4">
         <div class="form-group">
             {!! Form::label('nota_fiscal', 'Nota Fiscal', ['class' => 'control-label']) !!}
             {!! Form::text('nota_fiscal', null, ['class' => 'form-control form-control-sm', 'placeholder' => '']) !!}
             <small class="help-block">{{{ $errors->first('nota_fiscal', ':message') }}}</small>
         </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-4">
         <div class="form-group">
             {!! Form::label('valor', 'Valor Total R$', ['class' => 'control-label']) !!}
             {!! Form::text('valor', null, ['class' => 'form-control form-control-sm', 'placeholder' => '']) !!}
             <small class="help-block">{{{ $errors->first('valor', ':message') }}}</small>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            {!! Form::label('observacao', 'Observação', ['class' => 'control-label']) !!}
+            {!! Form::textarea('observacao', null, ['class' => 'form-control form-control-sm', 'placeholder' => '', 'rows'=>'2']) !!}
+            <small class="help-block">{{{ $errors->first('observacao', ':message') }}}</small>
         </div>
     </div>
 
@@ -64,22 +73,25 @@
                     <button type="button" class="js-remove-itens btn btn-sm btn-danger btn-outline bootstrap-touchspin-up" title="Remover Linha">
                         <i class="fa fa-trash"></i>
                     </button>
+                    <button class="js-add-itens btn btn-sm btn-info btn-outline bootstrap-touchspin-up"
+                            type="button" title="Add Linha">  <i class="fa fa-plus"></i>
+                    </button>
                 </div>
 
             </div>
         </div>
 
 
-        <div class="row">
-            <div class="form-group col-sm-12">
-                <button class="js-add-itens btn btn-sm btn-info btn-outline bootstrap-touchspin-up"
-                        type="button" title="Adicionar Linha"> Adicionar Linha
-                </button>
-            </div>
-        </div>
+        {{--<div class="row">--}}
+            {{--<div class="form-group col-sm-12">--}}
+                {{--<button class="js-add-itens btn btn-sm btn-info btn-outline bootstrap-touchspin-up"--}}
+                        {{--type="button" title="Adicionar Linha"> Adicionar Linha--}}
+                {{--</button>--}}
+            {{--</div>--}}
+        {{--</div>--}}
     </div>
 </div>
-
+</div>
 @section('scripts')
 
     <script>
@@ -88,7 +100,7 @@
         $('.itens-wrapper').on('click', '.js-add-itens', function() {
 
             var n = $('.data-itens').length;
-            console.log(n);
+            // console.log(n);
 
             var detalheItem = $('<div class="data-itens">' +
                 '<input name="detalhe['+n+'][id]" ' +
@@ -115,9 +127,12 @@
                     'name="detalhe['+n+'][valor_total]" type="text" id="detalhe['+n+'][valor_total]">' +
                     '</div>' +
                     '<div class="form-group col-sm-2">' +
-                        '<button type="button" class="js-remove-itens btn btn-sm btn-danger ' +
-                        'btn-outline bootstrap-touchspin-up" ' +
-                        'title="Remover Linha"><i class="fa fa-trash"></i></button>' +
+                        '<button type="button" class="js-remove-itens btn btn-sm btn-danger btn-outline bootstrap-touchspin-up" ' +
+                        'title="Remover Linha"><i class="fa fa-trash"></i></button>' +  '&nbsp;' +
+
+                        '<button type="button" class="js-add-itens btn btn-sm btn-info btn-outline bootstrap-touchspin-up" ' +
+                        'title="Add Linha"><i class="fa fa-plus"></i></button>' +
+
                     '</div>' +
                 '</div>' +
                 '</div>');
