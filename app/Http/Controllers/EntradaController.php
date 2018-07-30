@@ -63,7 +63,7 @@ class EntradaController extends Controller
         try {
             
             // Tá faltando o validators
-            //Eu vou criei uma EntradaRequest, é que nao passei ainda no parâmetro
+            //Eu ja criei uma EntradaRequest, é que nao passei ainda no parâmetro
 
             $entradaModel = $this->entrada->create($data);
            
