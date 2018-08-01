@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
 
 class EntradaRequest extends FormRequest
 {
@@ -21,14 +24,23 @@ class EntradaRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
-            'data' => 'required|date',
-            'nota_fiscal' => 'numeric',
-            'valor' => 'required',
+        if (Route::getCurrentRoute()->getName() == "entrada.store") {
+            return [
+                'data' => 'required|date',
+                'nota_fiscal' => 'numeric',
+                'valor' => 'required',
 
-        ];
+            ];
+        } else {
+            $rule = [
+                'data' => 'required|date',
+                'nota_fiscal' => 'numeric',
+                'valor' => 'required',
+            ];
+            return $rule;
+        }
     }
 
     public function messages()

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class ProdutoRequest extends FormRequest
 {
@@ -21,17 +23,30 @@ class ProdutoRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
-            'nome' => 'required|min:3|unique:produtos',
-            'descricao' => 'min:5',
-            'peso' => '',
-            'volume' => '',
-            'tipo_unidade_id' => 'required',
-            'categoria_id' => 'required',
-            'fornecedor_id' =>  'required'
-        ];
+        if (Route::getCurrentRoute()->getName() == "produto.store") {
+            return [
+                'nome' => 'required|min:3|unique:produtos',
+                'descricao' => 'min:5',
+                'peso' => '',
+                'volume' => '',
+                'tipo_unidade_id' => 'required',
+                'categoria_id' => 'required',
+                'fornecedor_id' => 'required'
+            ];
+        }else{
+            $rule = [
+                'nome' => 'required|min:3|unique:produtos',
+                'descricao' => 'min:5',
+                'peso' => '',
+                'volume' => '',
+                'tipo_unidade_id' => 'required',
+                'categoria_id' => 'required',
+                'fornecedor_id' => 'required'
+            ];
+            return $rule;
+        }
     }
 
     public function messages()

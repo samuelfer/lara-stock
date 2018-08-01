@@ -11,7 +11,7 @@
     @include('saida._form')
 
     <div class="form-group col-md-5">
-    {!! Form::submit('Cadastrar saída', ['class' => 'btn btn-success btn-sm']) !!}
+    {!! Form::submit('Finalizar saída', ['class' => 'btn btn-success btn-sm']) !!}
     </div>
     {!! Form::close() !!}
 

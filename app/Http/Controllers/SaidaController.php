@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Historico;
 use App\Http\Requests\SaidaRequest;
+use App\Pessoa;
 use App\Produto;
 use App\Saida;
 use App\SaidaDetalhe;
@@ -17,15 +18,17 @@ class SaidaController extends Controller
     protected $historico;
     protected $tipoUnidade;
     protected $produto;
+    protected $pessoa;
 
     public function __construct(Saida $saida, SaidaDetalhe $saidaDetalhe,Historico $historico,
-                                TipoUnidade $tipoUnidade, Produto $produto)
+                                TipoUnidade $tipoUnidade, Produto $produto, Pessoa $pessoa)
     {
         $this->saida = $saida;
         $this->saidaDetalhe = $saidaDetalhe;
         $this->historico = $historico;
         $this->tipoUnidade = $tipoUnidade;
         $this->produto = $produto;
+        $this->pessoa = $pessoa;
     }
 
     public function index()
@@ -45,8 +48,10 @@ class SaidaController extends Controller
         $this->authorize('saida_create', $this->saida);
         $tpunidades = $this->tipoUnidade->pluck('nome', 'id');
         $produtos = $this->produto->pluck('nome', 'id');
+        $clientes = $this->pessoa->pluck('nome', 'id');
 
-        return view('saida.create', compact('tpunidades', 'produtos'));
+
+        return view('saida.create', compact('tpunidades', 'produtos', 'clientes'));
     }
 
     /**
@@ -55,7 +60,7 @@ class SaidaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SaidaRequest $request)
+    public function store(Request $request)
     {
         $data = $request->all();
 
@@ -70,6 +75,7 @@ class SaidaController extends Controller
             foreach($detalhes as $detalhe) {
                 $salvarDetalhe = $detalhe;
                 $salvarDetalhe['saida_id'] = $saidaModel->id;
+                //dd($salvarDetalhe);
                 $this->saidaDetalhe->create($salvarDetalhe);
             }
 
@@ -106,7 +112,11 @@ class SaidaController extends Controller
         $this->authorize('saida_edit', $this->saida);
         $sai = $this->saida->findOrFail($id);
 
-        return view('saida.edit', compact('sai'));
+        $tpunidades = $this->tipoUnidade->pluck('nome', 'id');
+        $produtos = $this->produto->pluck('nome', 'id');
+        $clientes = $this->pessoa->pluck('nome', 'id');
+
+        return view('saida.edit', compact('sai', 'tpunidades', 'produtos', 'clientes'));
     }
 
     /**
@@ -147,7 +157,7 @@ class SaidaController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('saida_delete', $this->saida);
+        $this->authorize('saida_destroy', $this->saida);
         if (!($sai = $this->saida->find($id))) {
             throw new ModelNotFoundException("A saída não foi encontrado");
         }

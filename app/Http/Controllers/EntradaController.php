@@ -56,7 +56,7 @@ class EntradaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EntradaRequest $request)
     {
         $data = $request->all();
 
@@ -64,7 +64,9 @@ class EntradaController extends Controller
 
             $entradaModel = $this->entrada->create($data);
 
+        if($request->has('detalhe')){
             $detalhes = $request->get('detalhe');
+
 
             foreach($detalhes as $detalhe) {
                 $salvarDetalhe = $detalhe;
@@ -77,6 +79,7 @@ class EntradaController extends Controller
                 $insertHistorico = $this->historico->create($detalheEntrada->toArray());//Inserindo os dados em historico
             }
 
+        }
             session()->flash('flash_message', 'Cadastro realizado com sucesso');
             session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
 
@@ -108,9 +111,12 @@ class EntradaController extends Controller
     public function edit($id)
     {
         //$this->authorize('entrada_edit', $this->entrada);
+        $dados = $this->entrada->findOrFail($id);
+
         $ent = $this->entrada->findOrFail($id);
         $produtos = $this->produto->pluck('nome',  'id');
         $tpunidades = $this->tipoUnidade->pluck('nome', 'id');
+
 
         return view('entrada.edit', compact('ent', 'produtos', 'tpunidades'));
     }
@@ -122,9 +128,10 @@ class EntradaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EntradaRequest $request, $id)
     {
         $data = $request->all();
+
 
         try {
 

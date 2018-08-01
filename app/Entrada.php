@@ -17,6 +17,6 @@ class Entrada extends Model
 
     public function entrada_detalhe()
     {
-        return $this->hasMany(EntradaDetalhe::class, 'id', 'entrada_id');
+        return $this->hasMany(EntradaDetalhe::class,'entrada_id');
     }
 }

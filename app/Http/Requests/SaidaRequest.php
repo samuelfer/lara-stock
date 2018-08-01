@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class SaidaRequest extends FormRequest
 {
@@ -21,15 +23,24 @@ class SaidaRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
-            'data' => 'required|date',
-            'valor' => 'numeric',
-            'observacao' => 'string',
-            'setor_id' => 'numeric'
+        if (Route::getCurrentRoute()->getName() == "saida.store") {
+            return [
+                'data' => 'required|date',
+                'valor' => 'numeric',
+                'observacao' => 'string',
+                'pessoa_id' => 'numeric'
 
-        ];
+            ];
+        }else{
+            $rule = [
+                'data' => 'required|date',
+                'valor' => 'numeric',
+                'pessoa_id' => 'numeric',
+            ];
+            return $rule;
+        }
     }
 
     public function messages()
@@ -37,7 +48,7 @@ class SaidaRequest extends FormRequest
         return [
             'data.required' => 'O campo data é obrigatório',
             'valor.numeric' => 'O campo valor é obrigatório',
-            'setor.numeric' => 'O setor é obrigatório'
+            'pessoa.numeric' => 'O cliente é obrigatório'
         ];
     }
 }

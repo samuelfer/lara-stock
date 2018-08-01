@@ -12,9 +12,10 @@ class SaidaDetalhe extends Model
         'nome',
         'observacao',
         'valor_unitario',
+        'quantidade',
         'valor_total',
         'saida_id',
-        'tipo_unidade',
+        'tipo_unidade_id',
         'produto_id'
     ];
 

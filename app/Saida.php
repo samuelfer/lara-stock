@@ -12,16 +12,16 @@ class Saida extends Model
         'data',
         'valor',
         'observacao',
-        'setor_id'
+        'pessoa_id'
     ];
 
     public function saida_detalhe()
     {
-        return $this->hasMany(SaidaDetalhe::class, 'id', 'saida_id');
+        return $this->hasMany(SaidaDetalhe::class, 'saida_id');
     }
 
-    public function setor()
+    public function pessoa()
     {
-        return $this->belongsTo(Setor::class, 'id', 'setor_id');
+        return $this->belongsTo(Pessoa::class, 'pessoa_id');
     }
 }

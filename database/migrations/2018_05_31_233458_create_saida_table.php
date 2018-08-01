@@ -19,8 +19,8 @@ class CreateSaidaTable extends Migration
 //            $table->date('data');
 //            $table->decimal('valor',10,2);
 //            $table->text('observacao')->nullable();
-//            $table->integer('setor_id')->unsigned();
-//            $table->foreign('setor_id')->references('id')->on('setor')->onDelete('cascade');;
+//            $table->integer('pessoa_id')->unsigned();
+//            $table->foreign('pessoa_id')->references('id')->on('pessoa')->onDelete('cascade');;
 //            $table->timestamps();
 //        });
 //    }
@@ -32,6 +32,6 @@ class CreateSaidaTable extends Migration
 //     */
 //    public function down()
 //    {
-//        Schema::dropIfExists('entrada_saida');
+//        Schema::dropIfExists('saida_detalhe');
 //    }
 }
