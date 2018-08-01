@@ -61,19 +61,35 @@ class EntradaController extends Controller
         $data = $request->all();
 
         try {
+            
+            // Tá faltando o validators
+            //Eu ja criei uma EntradaRequest, é que nao passei ainda no parâmetro
 
             $entradaModel = $this->entrada->create($data);
-
+           
+            
+            // Aqui vai dar erro, por que quando não existir detalhe, vai dar erro.
+            //Certo, vou usar desse jeito que você falou, mas o detalhe vai ser obrigatório
+            
+            // Colocar isso
+            if($request->has('detalhe'):
+              // code
+            endif;
+            
             $detalhes = $request->get('detalhe');
-
-            foreach($detalhes as $detalhe) {
+            
+            // Isso daqui vai funcionar mas vai ser ruim p manter, que tal criar um evento? toda vez que eu cadastrar
+            // uma nova entrada, eu dispara esse evento (que é uma função que tu vai fazer a mesma coisa), e fica em um lugar só
+            //Vou ver como crio esse evento deve ser bem melhor mesmo
+               
+           foreach($detalhes as $detalhe) {
                 $salvarDetalhe = $detalhe;
                 $salvarDetalhe['entrada_id'] = $entradaModel->id;
                 $detalheEntrada = $this->entradaDetalhe->create($salvarDetalhe);//Inserindo em entrada detalhe
 
                 $detalheEntrada['data_entrada'] = $entradaModel->data;
                 $detalheEntrada['entrada_detalhe_id'] = $detalheEntrada->id;
-
+                    
                 $insertHistorico = $this->historico->create($detalheEntrada->toArray());//Inserindo os dados em historico
             }
 
@@ -157,6 +173,9 @@ class EntradaController extends Controller
         if (!($prod = $this->entrada->find($id))) {
             throw new ModelNotFoundException("A entrada não foi encontrada");
         }
+        
+        // FindOrfail já era esse erro ModelNotFoundException
+        
         $prod->delete();
 
         session()->flash('flash_message', 'Registro excluído com sucesso');
