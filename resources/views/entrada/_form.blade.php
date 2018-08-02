@@ -34,50 +34,62 @@
     <hr>
 
     <div class="form-group col-sm-12">
+        <div class="card card-info">
+           <div class="card-header">
+               <h6 class="box-title"><strong>Detalhe do pedido</strong></h6>
+           </div>
 
-        <h6 class="box-title"><strong>Por favor informe os itens</strong></h6>
-    <hr>
+        </div>
+
     </div>
 
     <div class="itens-wrapper col-sm-12">
+        {{--<div class="row">--}}
+        {{--<div class="form-group col-sm-3"><th>Produto</th></div>--}}
 
+        {{--<div class="form-group col-sm-2"><th>Un. venda</th></div>--}}
+        {{--<div class="form-group col-sm-1"><th>Quant</th></div>--}}
+        {{--<div class="form-group col-sm-2"><th>V. Unit</th></div>--}}
+        {{--<div class="form-group col-sm-2"><th>V. Tot</th></div>--}}
+        {{--</div>--}}
         <div class="data-itens">
-            {!! Form::hidden("detalhe[0][id]", null) !!}
-            <div class="row">
 
-                <div class="form-group col-sm-3">
-                    {!! Form::select('detalhe[0][produto_id]', $produtos, (isset($entrada)) ? $entrada->produto_id : old('produto_id'), ['class' => 'form-control form-control-sm', 'required', 'placeholder' => 'Selecione']) !!}
-                    {{--{!! Form::text("detalhe[0][produto_id]", null, ['class' => 'form-control form-control-sm', 'placeholder' => 'Produto']) !!}--}}
-                </div>
+                <div class="row">
+                    @if($data->entrada_detalhe->count() > 0)
+                        @foreach($data->entrada_detalhe as $datum)
+                            {!! Form::hidden("detalhe[0][id]", $datum->id) !!}
+                    <div class="form-group col-sm-3">
+                        {!! Form::select('detalhe[0][produto_id]', $produtos, (isset($datum->produto_id)) ? $datum->produto_id : old('produto_id'), ['class' => 'form-control form-control-sm', 'required', 'placeholder' => 'Selecione']) !!}
+                        {{--{!! Form::text("detalhe[0][produto_id]", null, ['class' => 'form-control form-control-sm', 'placeholder' => 'Produto']) !!}--}}
+                    </div>
 
-                <div class="form-group col-sm-1">
-                    {!! Form::text("detalhe[0][quantidade]", null, ['class' => 'form-control form-control-sm', 'placeholder' => 'Qtd']) !!}
-                </div>
+                    <div class="form-group col-sm-2">
+                        {!! Form::select('detalhe[0][tipo_unidade_id]', $tpunidades, (isset($datum->tipo_unidade_id)) ? $datum->tipo_unidade_id : old('tipo_unidade_id'), ['class' => 'form-control form-control-sm', 'required', 'placeholder' => 'Selecione']) !!}
+                        {{--{!! Form::text("detalhe[0][tipo_unidade_id]", null, ['class' => 'form-control form-control-sm', 'placeholder' => 'Unidade']) !!}--}}
+                    </div>
 
+                    <div class="form-group col-sm-1">
+                        {!! Form::text("detalhe[0][quantidade]", (isset($datum->quantidade)) ? $datum->quantidade : old('quantidade'), ['class' => 'form-control form-control-sm', 'placeholder' => 'Qtd']) !!}
+                    </div>
 
+                    <div class="form-group col-sm-2">
+                        {!! Form::text("detalhe[0][valor_unitario]", (isset($datum->valor_unitario)) ? $datum->valor_unitario : old('valor_unitario'), ['class' => 'form-control form-control-sm', 'placeholder' => 'Val Unit']) !!}
+                    </div>
 
-                <div class="form-group col-sm-2">
-                    {!! Form::select('detalhe[0][tipo_unidade_id]', $tpunidades, (isset($produto)) ? $produto->tipo_unidade_id : old('tipo_unidade_id'), ['class' => 'form-control form-control-sm', 'required', 'placeholder' => 'Selecione']) !!}
-                    {{--{!! Form::text("detalhe[0][tipo_unidade_id]", null, ['class' => 'form-control form-control-sm', 'placeholder' => 'Unidade']) !!}--}}
-                </div>
+                    <div class="form-group col-sm-2">
+                        {!! Form::text("detalhe[0][valor_total]", (isset($datum->valor_total)) ? $datum->valor_total : old('valor_total'), ['class' => 'form-control form-control-sm', 'placeholder' => 'Val Tot']) !!}
+                    </div>
 
-                <div class="form-group col-sm-2">
-                    {!! Form::text("detalhe[0][valor_unitario]", null, ['class' => 'form-control form-control-sm', 'placeholder' => 'Val Unit']) !!}
-                </div>
-
-                <div class="form-group col-sm-2">
-                    {!! Form::text("detalhe[0][valor_total]", null, ['class' => 'form-control form-control-sm', 'placeholder' => 'Val Tot']) !!}
-                </div>
-
-                <div class="form-group col-sm-2">
-                    <button type="button" class="js-remove-itens btn btn-sm btn-danger btn-outline bootstrap-touchspin-up" title="Remover Linha">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                    <button class="js-add-itens btn btn-sm btn-info btn-outline bootstrap-touchspin-up"
-                            type="button" title="Add Linha">  <i class="fa fa-plus"></i>
-                    </button>
-                </div>
-
+                    <div class="form-group col-sm-2">
+                        <button type="button" class="js-remove-itens btn btn-sm btn-danger btn-outline bootstrap-touchspin-up" title="Remover Linha">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        <button class="js-add-itens btn btn-sm btn-info btn-outline bootstrap-touchspin-up"
+                                type="button" title="Add Linha">  <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                @endforeach
+                    @endif
             </div>
         </div>
 
@@ -110,13 +122,13 @@
                         '<input class="form-control form-control-sm" placeholder="Produto" ' +
                         'name="detalhe['+n+'][produto_id]" type="text" id="detalhe['+n+'][produto_id]">' +
                     '</div>' +
-                    '<div class="form-group col-sm-1">' +
-                        '<input class="form-control form-control-sm" placeholder="Qtd" ' +
-                        'name="detalhe['+n+'][quantidade]" type="text" id="detalhe['+n+'][quantidade]">' +
-                    '</div>' +
                     '<div class="form-group col-sm-2">' +
                     '<input class="form-control form-control-sm" placeholder="Unidade" ' +
                     'name="detalhe['+n+'][tipo_unidade_id]" type="text" id="detalhe['+n+'][tipo_unidade_id]">' +
+                    '</div>' +
+                    '<div class="form-group col-sm-1">' +
+                    '<input class="form-control form-control-sm" placeholder="Qtd" ' +
+                    'name="detalhe['+n+'][quantidade]" type="text" id="detalhe['+n+'][quantidade]">' +
                     '</div>' +
                     '<div class="form-group col-sm-2">' +
                     '<input class="form-control form-control-sm" placeholder="Val Unit" ' +

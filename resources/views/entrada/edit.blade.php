@@ -3,7 +3,7 @@
 
 @section('content')
 
-    {!! Form::model($ent, ['route' => ['entrada.update','ent' => $ent->id], 'class' => 'form', 'method' => 'PUT']) !!}
+    {!! Form::model($data, ['route' => ['entrada.update','ent' => $data->id], 'class' => 'form', 'method' => 'PUT']) !!}
 
     @include('entrada._form')
 

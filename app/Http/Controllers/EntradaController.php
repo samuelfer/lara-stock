@@ -32,7 +32,7 @@ class EntradaController extends Controller
     public function index()
     {
         $data = $this->entrada->orderBy('id', 'asc')->paginate(5);
-//        dd($data);
+
         return view('entrada.index', compact('data'));
     }
 
@@ -111,14 +111,13 @@ class EntradaController extends Controller
     public function edit($id)
     {
         //$this->authorize('entrada_edit', $this->entrada);
-        $dados = $this->entrada->findOrFail($id);
 
-        $ent = $this->entrada->findOrFail($id);
+        $data = $this->entrada->findOrFail($id);
         $produtos = $this->produto->pluck('nome',  'id');
         $tpunidades = $this->tipoUnidade->pluck('nome', 'id');
+//        $data = $this->entrada->with('entrada_detalhe')->findOrFail($id);
 
-
-        return view('entrada.edit', compact('ent', 'produtos', 'tpunidades'));
+        return view('entrada.edit', compact('data', 'produtos', 'tpunidades'));
     }
 
     /**
@@ -140,6 +139,15 @@ class EntradaController extends Controller
             $prod = $this->entrada->findOrFail($id);
 
             $prod->update($data);
+
+            $dadosDetalhe = array_get($request, 'detalhe', []);//Pegando apenas o array de detalhe
+
+            foreach ($dadosDetalhe as $dados) {
+
+                $dados['entrada_id'] = $id;
+                $this->entradaDetalhe->updateOrCreate($dados);//Atualizando em entrada detalhe
+            }
+
 
             session()->flash('flash_message', 'Registro atualizado com sucesso');
             session()->flash('flash_message_type', BOOTSTRAP_SUCCESS);
